@@ -1,4 +1,5 @@
 <!-- views/applications/show.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +9,9 @@
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
-  <h1>
-    <%= application.title %> at <%= application.company %>
-  </h1>
+    <h1>
+      <%= application.title %> at <%= application.company %>
+    </h1>
   <% if (application.notes) { %>
     <p>
       Notes: <%= application.notes %>
@@ -18,23 +19,19 @@
   <% } %>
   <% if (application.postingLink) { %>
     <a 
-      href="<%= application.postingLink %>">Visit this job posting
+    href="<%= application.postingLink %>">Visit this job posting
     </a>
   <% } %>
-    <p>
-      The status of this application is: <%= application.status %>
-    </p>
-  <!-- We'll use method-override to allow us to hit a delete route: -->
+  <p>The status of this application is: <%= application.status %></p>
+  <a href="/users/<%= user._id %>/applications/<%= application._id %>/edit">
+    Edit this application
+  </a>
   <form
-
     action="/users/<%= user._id %>/applications/<%= application._id %>?_method=DELETE"
-
-    method="POST">
-
-    <button 
-      type="submit">Delete this application
-    </button>
+    method="POST"
+  >
+    <button type="submit">Delete this application</button>
   </form>
-  
 </body>
 </html>
+

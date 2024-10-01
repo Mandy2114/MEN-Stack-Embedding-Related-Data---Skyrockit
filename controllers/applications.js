@@ -5,6 +5,10 @@ const router = express.Router();
 
 const User = require('../models/user.js');
 
+// const handError = (error, res) => {
+//   console.log(error)
+//   res.redirect('/')
+// }
 
 router.get('/', async (req, res) => {
   try {
@@ -76,6 +80,19 @@ router.delete('/:applicationId', async (req, res) => {
     res.redirect(`/users/${currentUser._id}/applications`);
   } catch (error) {
     // If any errors, log them and redirect back home
+    console.log(error);
+    res.redirect('/')
+  }
+});
+
+router.get('/:applicationId/edit', async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id);
+    const application = currentUser.applications.id(req.params.applicationId);
+    res.render('applications/edit.ejs', {
+      application: application,
+    });
+  } catch (error) {
     console.log(error);
     res.redirect('/')
   }
